@@ -29,18 +29,18 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($users as $user)
+        @foreach ($loans as $loan)
         <tr>
-          <th scope="row">{{$user->id}}</th>
-          <td>{{$user->LoanAmount}}</td>
-          <td>{{$user->LoanTerm}}</td>
-          <td>{{$user->InterestRate}}</td>
-          <td>{{$user->created_at}}</td>
+          <th scope="row">{{$loan->id}}</th>
+          <td>{{number_format($loan->LoanAmount, 2, '.', ',')}}</td>
+          <td>{{$loan->LoanTerm}}</td>
+          <td>{{$loan->InterestRate}}</td>
+          <td>{{$loan->created_at}}</td>
           <td>
           <form action="/delete" method="get">
-            <button type="button" onclick="location.href='/view/{{$user->id}}'" class="btn btn-info">View</button>
-            <button type="button" onclick="location.href='/edit/{{$user->id}}'" class="btn btn-success">Edit</button>
-              <button name="delete" type="submit" value="{{$user->id}}" class="btn btn-danger">Delete</button>
+            <button type="button" onclick="location.href='/view/{{$loan->id}}'" class="btn btn-info">View</button>
+            <button type="button" onclick="location.href='/edit/{{$loan->id}}'" class="btn btn-success">Edit</button>
+              <button name="delete" type="submit" value="{{$loan->id}}" class="btn btn-danger">Delete</button>
           </td>
           </form>
         </tr>

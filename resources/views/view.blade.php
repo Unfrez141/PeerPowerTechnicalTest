@@ -29,7 +29,7 @@
             Loan Amount:
          </div>
          <div class="col-2 align-self-start">
-            {{$loan->LoanAmount}}
+            {{number_format($loan->LoanAmount, 2, '.', ',')}}
          </div>
       </div>
       <div class="row">
@@ -76,10 +76,10 @@
          <tr>
             <th scope="row">{{$repayment -> no}}</th>
             <td>{{date("M Y", strtotime($repayment -> dates))}}</td>
-            <td>{{$repayment -> paymentAmount}}</td>
-            <td>{{$repayment -> principal}}</td>
-            <td>{{$repayment -> interest}}</td>
-            <td>{{$repayment -> balance}}</td>
+            <td> {{number_format($repayment -> paymentAmount, 2, '.', ',')}}</td>
+            <td>{{number_format($repayment -> principal, 2, '.', ',')}}</td>
+            <td>{{number_format($repayment -> interest, 2, '.', ',')}}</td>
+            <td>{{number_format($repayment -> balance, 2, '.', ',')}}</td>
          </tr>
          @endforeach
 

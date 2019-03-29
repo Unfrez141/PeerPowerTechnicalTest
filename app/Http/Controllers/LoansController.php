@@ -41,12 +41,12 @@ class LoansController extends Controller
 {
 
     function showLoansList(){
-        $users = \DB::table('loans')->get();
-        return View('showLoans', ['users' => $users]);
+        $loans = \DB::table('loans')->get();
+        return View('showLoans', ['loans' => $loans]);
     }
 
     function create(){
-        return View('createLoan');
+        return View('insertLoan');
     }
 
     function update(Request $request, $id){
