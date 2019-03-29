@@ -14,12 +14,13 @@ class CreateLoansTable extends Migration
     public function up()
     {
         Schema::create('loans', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id', true);
             $table->integer('LoanAmount');
             $table->integer('LoanTerm');
-            $table->integer('InterestRate');
+            $table->float('InterestRate',2);
             $table->timestamps();
         });
+
     }
 
     /**

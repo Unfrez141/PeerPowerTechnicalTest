@@ -15,34 +15,76 @@
 
 <body>
    <div class="container">
-      <p class="h1">Repayment Schedules</p>
-      <table class="table">
+      <p class="h1">Loan Details</p>
+      <div class="row">
+         <div class="col-2 align-self-start">
+            ID:
+         </div>
+         <div class="col-2 align-self-start">
+            {{$loan->id}}
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-2 align-self-start">
+            Loan Amount:
+         </div>
+         <div class="col-2 align-self-start">
+            {{$loan->LoanAmount}}
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-2 align-self-start">
+            Loan Term:
+         </div>
+         <div class="col-2 align-self-start">
+            {{$loan->LoanTerm}}
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-2 align-self-start">
+            Interest Rate
+         </div>
+         <div class="col-2 align-self-start">
+            {{$loan->InterestRate}}
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-2 align-self-start">
+            Created at:
+         </div>
+         <div class="col-2 align-self-start">
+            {{$loan->created_at}}
+         </div>
+      </div>
+      <button type="button" onclick="location.href='/'" class="btn btn-secondary">Back</button>
+   <p class="h1">Repayment Schedules</p>
+   <table class="table">
 
-         <thead>
-            <tr>
-               <th scope="col">Payment No</th>
-               <th scope="col">Date</th>
-               <th scope="col">Payment Amount</th>
-               <th scope="col">Principal</th>
-               <th scope="col">Interest</th>
-               <th scope="col">Balance</th>
-            </tr>
-         </thead>
-         <tbody>
-            @foreach ($paymentList as $item)
+      <thead>
+         <tr>
+            <th scope="col">Payment No</th>
+            <th scope="col">Date</th>
+            <th scope="col">Payment Amount</th>
+            <th scope="col">Principal</th>
+            <th scope="col">Interest</th>
+            <th scope="col">Balance</th>
+         </tr>
+      </thead>
+      <tbody>
+         @foreach ($repayments as $repayment)
 
-            <tr>
-               <th scope="row">{{$item['paymentNo']}}</th>
-               <td>May 2017</td>
-               <td>{{$item['PMT']}}</td>
-               <td>{{$item['Principal']}}</td>
-               <td>{{$item['Interest']}}</td>
-               <td>{{$item['Balance']}}</td>
-            </tr>
-            @endforeach
+         <tr>
+            <th scope="row">{{$repayment -> no}}</th>
+            <td>{{date("M Y", strtotime($repayment -> dates))}}</td>
+            <td>{{$repayment -> paymentAmount}}</td>
+            <td>{{$repayment -> principal}}</td>
+            <td>{{$repayment -> interest}}</td>
+            <td>{{$repayment -> balance}}</td>
+         </tr>
+         @endforeach
 
-         </tbody>
-      </table>
+      </tbody>
+   </table>
 
    </div>
 

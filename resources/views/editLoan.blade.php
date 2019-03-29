@@ -15,10 +15,10 @@
 
 <body>
    <div class="container">
-      <p class="h1">Create Loan</p>
+      <p class="h1">Edit Loan</p>
       <div class="row justify-content-md-center">
          <div class="col-10">
-            <form action="/view" method="get" id='form'>
+            <form action="/update/{{$id}}" method="get" id='form'>
                <div class="form-group">
 
                      <div class="form-group row">
@@ -80,7 +80,6 @@
 
                            <div class="dropdown">
                               <select name="year">
-
                               <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
                                  @for ($i = 2017; $i < 2051; $i++)
                                     <option value={{$i}} >{{$i}}</option>
@@ -92,8 +91,8 @@
                      </div>
 
                      <div class="form-group row">
-                        <div class="col-sm-9 offset-sm-3">
-                           <button type="submit" class="btn btn-primary">Create</button>
+                        <div class="col-sm-10 offset-sm-2">
+                           <button type="submit" class="btn btn-primary">Edit</button>
                            <button type="button" onclick="location.href='/'" class="btn btn-secondary">Back</button>
                         </div>
                      </div>

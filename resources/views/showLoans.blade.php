@@ -37,12 +37,12 @@
           <td>{{$user->InterestRate}}</td>
           <td>{{$user->created_at}}</td>
           <td>
+          <form action="/delete" method="get">
             <button type="button" onclick="location.href='/view/{{$user->id}}'" class="btn btn-info">View</button>
             <button type="button" onclick="location.href='/edit/{{$user->id}}'" class="btn btn-success">Edit</button>
-            <form action="/delete" method="get">
-              <button type="button" name="delete" type="submit" value="{{$user->id}}" class="btn btn-danger">Delete</button>
-            </form>
+              <button name="delete" type="submit" value="{{$user->id}}" class="btn btn-danger">Delete</button>
           </td>
+          </form>
         </tr>
         @endforeach
       </tbody>
