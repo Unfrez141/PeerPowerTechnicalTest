@@ -20,11 +20,11 @@ function calculation(Request $request, $id){
     $PMT = ($P*($r/12))/(1-((1+($r/12))**(-12*$y)));
     $paymentList = array();
 
-    while ($P > 0){
+    while ($P >= 0){
         $Interest = ($r/12)*$P;
         $Principal = $PMT - $Interest;
         $P = $P - $Principal;
-        DB::table('repayments')->insertGetId([
+        DB::table('repayments')->updateOrInsert([
             'no' => $paymentNo, 
             'dates' => "$year-$month-1", 
             'paymentAmount' => $PMT, 
@@ -57,15 +57,18 @@ class LoansController extends Controller
                 'LoanTerm' => (int)$request->get('loanTerm'), 
                 'InterestRate' => (float)($request->get('interestRate'))/100, 
             ]);
-        return redirect('/');
+        DB::table('repayments')->where('loan_id', $id)->delete();
+        calculation($request, $id);
+        return redirect('/view/'.$id);
     }
 
     function delete(Request $request){
         DB::table('loans')->where('id', $request->get('delete'))->delete();
+        DB::table('repayments')->where('loan_id', $request->get('delete'))->delete();
         return redirect('/');
     }
 
-    function viewParse(Request $request){
+    function insert(Request $request){
         $month = $request->get('month');
         $year = $request->get('year');
         $id = DB::table('loans')->insertGetId([

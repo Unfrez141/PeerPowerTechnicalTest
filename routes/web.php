@@ -19,5 +19,5 @@ Route::get('/edit/{id}', function ($id) {
 });
 Route::get('/update/{id}', 'LoansController@update');
 Route::get('/delete', 'LoansController@delete');
-Route::get('/view', 'LoansController@viewParse');
+Route::get('/view', 'LoansController@insert');
 Route::get('/view/{id}', 'LoansController@viewDetail');
