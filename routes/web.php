@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'LoansController@showList');
+Route::get('/create', 'LoansController@create');
+Route::post('/view', 'LoansController@viewParse');
+Route::get('/view/{id}', 'LoansController@view')->name('view');
+// Route::resource('/', 'repository');
+// Route::get('/form', function () {
+//     return view('form');
+// });
