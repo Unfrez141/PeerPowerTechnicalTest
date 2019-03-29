@@ -15,10 +15,12 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'LoansController@showList');
+Route::get('/', 'LoansController@showLoansList');
 Route::get('/create', 'LoansController@create');
+Route::get('/delete', 'LoansController@delete');
 Route::post('/view', 'LoansController@viewParse');
-Route::get('/view/{id}', 'LoansController@view')->name('view');
+Route::get('/view/{id}', 'LoansController@viewDetail')->name('view');
+
 // Route::resource('/', 'repository');
 // Route::get('/form', function () {
 //     return view('form');

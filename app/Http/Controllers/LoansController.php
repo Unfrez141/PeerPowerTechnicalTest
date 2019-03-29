@@ -7,40 +7,61 @@ use Illuminate\Http\Request;
 
 class LoansController extends Controller
 {
-    function showList(Request $request){
-        return View('showLoans')
-        ->with('text',$request->input('text'));
-    }
-
-    function create(Request $request){
+    function create(){
         return View('createLoan');
     }
 
+    function delete(Request $request){
+        echo $request->get('delete');
+        DB::table('loans')->where('id', $request->get('delete'))->delete();
+        return redirect('/');
+    }
+
     function viewParse(Request $request){
+        $month = $request->get('month');
+        $year = $request->get('year');
         $id = DB::table('loans')->insertGetId([
             'LoanAmount' => (int)$request->get('loanAmount'), 
             'LoanTerm' => (int)$request->get('loanTerm'), 
-            'InterestRate' => (float)$request->get('interestRate'), 
-            'created_at' =>  '2019-03-29' // $request->get('year').'-'.$request->get('month').'-'.'1'
+            'InterestRate' => (float)($request->get('interestRate'))/100, 
+            'created_at' => "$year-$month-1"
             ]);
         return redirect('view/'.$id);
     }
 
-    function View(Request $request, $id){
-        // Float round up 
-        $P = 10000;
-        $r = 0.1;
-        $y = 1;
+    function viewDetail($id){
+        $user = \DB::table('loans')->where('id',$id)->get()->first();
+
+        $P = $user->LoanAmount;
+        $r = $user->InterestRate;
+        $y = $user->LoanTerm;
+        $time = explode(' ', $user->created_at)[0];
+
+        # TODO: Date
+        $paymentNo = 1;
+
         $PMT = ($P*($r/12))/(1-((1+($r/12))**(-12*$y)));
-        $a = array();
+        $paymentList = array();
 
-        do{
-            $Inerest = ($r/12)*$P;
-            $Principal = $PMT - $Inerest;
-            $P = round($P - $Principal, 2);
-        } while ($P > 0);
+        while ($P > 0){
+            $Interest = ($r/12)*$P;
+            $Principal = $PMT - $Interest;
+            $P = $P - $Principal;
+            if ($P < 0){
+                $P = 0.00;
+            }
+            $m = array("PMT" => round($PMT, 2), "Interest" => round($Interest, 2), "Principal" => round($Principal, 2), "Balance" => round($P, 2), "paymentNo" => $paymentNo);
+            $paymentNo += 1;
+            array_push($paymentList, $m);
+        };
 
-        return View('view')
-        ->with('request',$id);
+        return View('view', ['paymentList' => $paymentList]);
+    }
+
+
+    function showLoansList(Request $request){
+        $users = \DB::table('loans')->get();
+
+        return View('showLoans', ['users' => $users]);
     }
 }

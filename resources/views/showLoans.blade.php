@@ -16,7 +16,7 @@
 <body>
   <div class="container">
     <p class="h1">All Loans</p>
-    <button type="button" class="btn btn-primary">Add Bew Loan</button>
+    <button type="button" onclick="location.href='/create'" class="btn btn-primary">Add New Loan</button>
     <table class="table">
       <thead>
         <tr>
@@ -29,18 +29,22 @@
         </tr>
       </thead>
       <tbody>
+        @foreach ($users as $user)
         <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Mark</td>
+          <th scope="row">{{$user->id}}</th>
+          <td>{{$user->LoanAmount}}</td>
+          <td>{{$user->LoanTerm}}</td>
+          <td>{{$user->InterestRate}}</td>
+          <td>{{$user->created_at}}</td>
           <td>
-            <button type="button" class="btn btn-info">View</button>
-            <button type="button" class="btn btn-success">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button type="button" onclick="location.href='/view/{{$user->id}}'" class="btn btn-info">View</button>
+            <button type="button" onclick="location.href='/edit/{{$user->id}}'" class="btn btn-success">Edit</button>
+            <form action="/delete" method="get">
+              <button type="button" name="delete" type="submit" value="{{$user->id}}" class="btn btn-danger">Delete</button>
+            </form>
           </td>
         </tr>
+        @endforeach
       </tbody>
     </table>
 
@@ -62,15 +66,6 @@
       </ul>
     </nav>
   </div>
-  <!-- <form action="/form/showdata" method="post" id='form'>
-        <div class="form-group">
-        <input type = "hidden" name = "_token" value = "<?php echo csrf_token() ?>">
-        <label for="exampleFormControlTextarea1">Example textarea</label>
-            <textarea class="form-control" id="text" name="text" rows="3"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form> -->
-
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

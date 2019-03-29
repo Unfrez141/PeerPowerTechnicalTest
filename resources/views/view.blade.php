@@ -15,7 +15,35 @@
 
 <body>
    <div class="container">
-      <h1>{{$request}}</h1>
+      <p class="h1">Repayment Schedules</p>
+      <table class="table">
+
+         <thead>
+            <tr>
+               <th scope="col">Payment No</th>
+               <th scope="col">Date</th>
+               <th scope="col">Payment Amount</th>
+               <th scope="col">Principal</th>
+               <th scope="col">Interest</th>
+               <th scope="col">Balance</th>
+            </tr>
+         </thead>
+         <tbody>
+            @foreach ($paymentList as $item)
+
+            <tr>
+               <th scope="row">{{$item['paymentNo']}}</th>
+               <td>May 2017</td>
+               <td>{{$item['PMT']}}</td>
+               <td>{{$item['Principal']}}</td>
+               <td>{{$item['Interest']}}</td>
+               <td>{{$item['Balance']}}</td>
+            </tr>
+            @endforeach
+
+         </tbody>
+      </table>
+
    </div>
 
 
