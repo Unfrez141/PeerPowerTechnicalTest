@@ -27,7 +27,19 @@ class LoansController extends Controller
     }
 
     function View(Request $request, $id){
-        
+        // Float round up 
+        $P = 10000;
+        $r = 0.1;
+        $y = 1;
+        $PMT = ($P*($r/12))/(1-((1+($r/12))**(-12*$y)));
+        $a = array();
+
+        do{
+            $Inerest = ($r/12)*$P;
+            $Principal = $PMT - $Inerest;
+            $P = round($P - $Principal, 2);
+        } while ($P > 0);
+
         return View('view')
         ->with('request',$id);
     }
